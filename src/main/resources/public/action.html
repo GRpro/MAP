@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Bootstrap Admin Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">MAP Project</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Go to <b class="caret"></b></a>
+                <ul class="dropdown-menu alert-dropdown">
+                    <li>
+                        <a href="index.html">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="action.html">Perform</a>
+                    </li>
+                    <li>
+                        <a href="about.html">Developers</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-15">
+                    <h1 class="page-header">
+                        Process page <small>Graph input</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li class="active">
+                            <i class="fa fa-dashboard"></i>
+                            Many people consider that an "oriented graph" is what you get from a simple undirected graph when you assign a direction to each edge. The difference between that and "directed graph" is that a directed graph can have cycles of length 2 even if it is qualified as "simple", whereas an "oriented graph" cannot. On the other hand, there are zillions of papers that use "oriented graph" with identical meaning to "directed graph".
+                            Applying these meanings pedantically in the negative doesn't seem to be a good idea. I'd be very surprised to see anyone using "non-oriented" of a digraph to imply that it doesn't have 2-cycles. I only recall "non-oriented" meaning that the edges don't have directions, which is the same as "undirected".
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-15">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Processing</h3>
+                        </div>
+                        <div class="panel-body">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-lg-15">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Graph input</h3>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-lg-3 text-center">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+
+                                            <div id="graph-node-attributes">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-info alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <i class="fa fa-info-circle"></i>
+                                        <strong>How to draw?</strong>
+                                        <ul style="text-align: left">
+                                            <li>drag/scroll to translate/zoom the graph</li>
+                                            <li>shift-click on graph to create a node</li>
+                                            <li>shift-click on a node and then drag to another node to connect them with a directed edge</li>
+                                            <li>click on node or edge and press backspace/delete to delete</li>
+                                            <li>shift-click on a node to change its title</li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.row -->
+                                    <p>
+                                        <button type="button" class="btn btn-info" id="download-input">Save graph</button>
+                                        <button type="button" class="btn btn-info" id="upload-input">Load graph</button>
+                                        <button type="button" class="btn btn-danger" id="delete-graph">Clear</button>
+                                        <input type="file" id="hidden-file-upload">
+                                    </p>
+
+                                </div>
+                                <div class="col-lg-9 text-center">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div id="graph">
+                                            </div>
+
+                                            <link rel="stylesheet" href="css/graph-creator.css" />
+                                            <script src="js/d3v3.js" charset="utf-8"></script>
+                                            <script src="js/FileSaver.js"></script>
+                                            <script src="js/graph-creator.js"></script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
