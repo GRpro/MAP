@@ -1,4 +1,4 @@
-document.onload = (function(d3, saveAs, Blob, undefined){
+document.onload = (function(d3, saveAs, Blob, webSocketClient){
   "use strict";
 
   // TODO add user settings
@@ -602,4 +602,4 @@ document.onload = (function(d3, saveAs, Blob, undefined){
   var graph = new GraphCreator(svg, nodes, edges);
       graph.setIdCt(2);
   graph.updateGraph();
-})(window.d3, window.saveAs, window.Blob);
+})(window.d3, window.saveAs, window.Blob, window.webSocketClient);
