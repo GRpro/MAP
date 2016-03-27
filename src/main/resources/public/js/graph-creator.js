@@ -167,6 +167,29 @@ document.onload = (function(d3, saveAs, Blob, webSocketClient){
     d3.select("#delete-graph").on("click", function(){
       thisGraph.deleteGraph(false);
     });
+
+    d3.select("#sendGraph").on("click", function(){
+      var nodes = [];
+      var edges = [];
+      for (var i = 0; i < thisGraph.nodes.length; i++) {
+        nodes.push({
+          id: thisGraph.nodes[i].id,
+          width: thisGraph.nodes[i].width,
+          height: thisGraph.nodes[i].height
+        })
+      }
+      for (var i = 0; i < thisGraph.edges.length; i++) {
+        edges.push({
+          source: thisGraph.edges[i].source.id,
+          target: thisGraph.edges[i].target.id
+        })
+      }
+      var graph = {
+        nodes: nodes,
+        edges: edges
+      };
+      webSocketClient.sendGraph(graph)
+    })
   };
 
   GraphCreator.prototype.setIdCt = function(idct){
@@ -264,6 +287,8 @@ document.onload = (function(d3, saveAs, Blob, webSocketClient){
       thisGraph.removeSelectFromNode();
     }
     thisGraph.state.selectedNode = nodeData;
+
+    displayGraphEditNode(thisGraph)
   };
 
   GraphCreator.prototype.removeSelectFromNode = function(){
@@ -272,6 +297,8 @@ document.onload = (function(d3, saveAs, Blob, webSocketClient){
       return cd.id === thisGraph.state.selectedNode.id;
     }).classed(thisGraph.consts.selectedClass, false);
     thisGraph.state.selectedNode = null;
+
+    hideGraphEditNode()
   };
 
   GraphCreator.prototype.removeSelectFromEdge = function(){
@@ -406,6 +433,7 @@ document.onload = (function(d3, saveAs, Blob, webSocketClient){
             thisGraph.replaceSelectNode(d3node, d);
           } else{
             thisGraph.removeSelectFromNode();
+
           }
         }
       }
@@ -414,6 +442,34 @@ document.onload = (function(d3, saveAs, Blob, webSocketClient){
     return;
 
   }; // end of circles mouseup
+
+  function displayGraphEditNode(thisGraph) {
+    var node = thisGraph.state.selectedNode;
+
+    // display edit fields
+    var div = document.getElementById('graph-node-attributes');
+    div.innerHTML = `
+    <div class="form-group">
+      <label for="node-param-width">Width:</label>
+      <input type="text" value="` + node.width + `" class="form-control" id="node-param-width">
+    </div>
+    <div class="form-group">
+      <label for="node-param-height">Height:</label>
+      <input type="text" value="` +  node.height + `" class="form-control" id="node-param-height">
+    </div>
+    <button type="button" class="btn btn-default" id="saveNode">Save Changes</button>`;
+
+    document.getElementById("saveNode").addEventListener("click", function(){
+      node.width = document.getElementById("node-param-width").value;
+      node.height = document.getElementById("node-param-height").value
+    });
+  }
+
+  function hideGraphEditNode() {
+    // display edit fields
+    var div = document.getElementById('graph-node-attributes');
+    div.innerHTML = '';
+  }
 
   // mousedown on main svg
   GraphCreator.prototype.svgMouseDown = function(){

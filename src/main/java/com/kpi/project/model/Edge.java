@@ -13,6 +13,9 @@ public class Edge {
         this.target = target;
     }
 
+    public Edge() {
+    }
+
     public int getSource() {
         return source;
     }
@@ -27,5 +30,13 @@ public class Edge {
 
     public void setTarget(int target) {
         this.target = target;
+    }
+
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "source=" + source +
+                ", target=" + target +
+                '}';
     }
 }

@@ -15,6 +15,9 @@ public class Graph {
         this.edges = edges;
     }
 
+    public Graph() {
+    }
+
     public List<Node> getNodes() {
         return nodes;
     }
@@ -31,5 +34,11 @@ public class Graph {
         this.edges = edges;
     }
 
-
+    @Override
+    public String toString() {
+        return "Graph{" +
+                "nodes=" + nodes +
+                ", edges=" + edges +
+                '}';
+    }
 }

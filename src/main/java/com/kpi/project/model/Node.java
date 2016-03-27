@@ -5,26 +5,19 @@ package com.kpi.project.model;
  */
 public class Node {
 
-    private String title;
     private int id;
 
     /* rectangle properties */
     private int width;
     private int height;
 
-    public Node(String title, int id, int width, int height) {
-        this.title = title;
+    public Node(int id, int width, int height) {
         this.id = id;
         this.width = width;
         this.height = height;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public Node() {
     }
 
     public int getId() {
@@ -49,5 +42,14 @@ public class Node {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "id=" + id +
+                ", width=" + width +
+                ", height=" + height +
+                '}';
     }
 }

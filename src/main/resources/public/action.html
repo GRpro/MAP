@@ -125,6 +125,7 @@
                                         <button type="button" class="btn btn-default" id="download-input">Save graph</button>
                                         <button type="button" class="btn btn-default" id="upload-input">Load graph</button>
                                         <button type="button" class="btn btn-warning" id="delete-graph">Clear</button>
+                                        <button type="button" class="btn btn btn-primary" id="sendGraph">Send graph</button>
                                         <input type="file" id="hidden-file-upload">
                                     </p>
                                 </div>
@@ -162,7 +163,6 @@
                         <div class="panel-body">
                             <div class="col-lg-6">
                                 <div>
-                                    <button id="sendGraph" type="button" class="btn btn btn-primary">Send graph</button>
                                     <button id="startProcess" type="button" class="btn btn btn-primary" onclick="webSocketClient.startProcess();">Start process</button>
                                     <button id="stopProcess" type="button" class="btn btn btn-primary" disabled="disabled" onclick="webSocketClient.stopProcess();">Stop process</button>
                                 </div>

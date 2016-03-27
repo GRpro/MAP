@@ -30,7 +30,7 @@ webSocketClient.disconnect = function () {
 };
 
 webSocketClient.sendGraph = function (graph) {
-    stompClient.send("/app/process/start", {}, JSON.stringify(graph));
+    stompClient.send("/app/process/graph", {}, JSON.stringify(graph));
     this.setProcessed(true);
 };
 
