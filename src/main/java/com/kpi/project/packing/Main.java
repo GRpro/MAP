@@ -1,21 +1,29 @@
 package com.kpi.project.packing;
 
-/**
- * Created by aleksandr on 27.03.16.
- */
 public class Main {
 
     public static void main(String[] args) {
-        CLB clb = new CLB("00", 15, 40);
-        Operation sub = new Operation("SUB", 12, 25);
-        Operation add = new Operation("ADD", 3, 5);
-        Operation div = new Operation("DIV", 8, 15);
-        Operation mul = new Operation("MUL", 7, 12);
+        CLB clb = new CLB(1, "CLB0", 15, 40);
+        Operation sub = new Operation(1, "SUB", 12, 25);
+        Operation add = new Operation(2, "ADD", 3, 5);
+        Operation div = new Operation(3, "DIV", 8, 15);
+        Operation mul = new Operation(4, "MUL", 7, 12);
 
         clb.activate(sub, add, div, mul);
-        System.out.println(clb.packer.getLevelInfo());
+        printMatrix(clb.toMatrix());
+        System.out.println(clb.packer.getInfo());
         System.out.println("*******************");
         clb.activate(mul);
-        System.out.println(clb.packer.getLevelInfo());
+        printMatrix(clb.toMatrix());
+        System.out.println(clb.packer.getInfo());
+    }
+
+    private static void printMatrix(int[][] m) {
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[i].length; j++) {
+                System.out.print(m[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }

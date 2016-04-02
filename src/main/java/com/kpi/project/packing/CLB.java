@@ -9,8 +9,8 @@ public class CLB extends Item2D {
     Packer packer;
     private ArrayList<Operation> operations;
 
-    public CLB(String name, int width, int height) {
-        super(name, width, height);
+    public CLB(int id, String name, int width, int height) {
+        super(id, name, width, height);
         packer = new Packer(width, height);
         operations = new ArrayList<Operation>();
     }
@@ -28,6 +28,10 @@ public class CLB extends Item2D {
             }
             operations.add(op);
         }
+    }
+
+    public int[][] toMatrix() {
+        return packer.makeMatrix();
     }
 
 }
