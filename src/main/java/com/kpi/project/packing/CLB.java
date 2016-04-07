@@ -1,5 +1,8 @@
 package com.kpi.project.packing;
 
+import com.kpi.project.model.Graph;
+import com.kpi.project.model.Node;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +31,19 @@ public class CLB extends Item2D {
             }
             operations.add(op);
         }
+    }
+
+    public void load(Graph graph) {
+        List<Node> nodes = graph.getNodes();
+        ArrayList<Operation> ops = new ArrayList<Operation>();
+        for (Node node : nodes) {
+            ops.add(new Operation(
+                    node.getId(),
+                    "Operation with id" + node.getId(),
+                    node.getWidth(),
+                    node.getHeight()));
+        }
+        activate(ops);
     }
 
     public int[][] toMatrix() {

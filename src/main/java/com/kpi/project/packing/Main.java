@@ -18,7 +18,7 @@ public class Main {
         System.out.println(clb.packer.getInfo());
     }
 
-    private static void printMatrix(int[][] m) {
+    public static void printMatrix(int[][] m) {
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[i].length; j++) {
                 System.out.print(m[i][j] + " ");

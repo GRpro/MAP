@@ -1,6 +1,7 @@
 package com.kpi.project;
 
 import com.kpi.project.model.Graph;
+import com.kpi.project.packing.CLB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class MainController {
     private Thread thread;
     private final Lock lock = new ReentrantLock(true);
 
+    private CLB clb = new CLB(1, "CLB1", 50, 50);
     private Graph graph;
 
     @MessageMapping("/process/graph")
@@ -34,6 +36,8 @@ public class MainController {
     @MessageMapping("/process/start")
     public void startTask() throws Exception {
         logger.debug("Start process");
+        clb.load(graph);
+        observer.setMatrix(clb.toMatrix());
         try {
             lock.lock();
             if (thread == null || !thread.isAlive()) {
