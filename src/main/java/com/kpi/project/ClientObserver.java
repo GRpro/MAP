@@ -44,8 +44,8 @@ public class ClientObserver implements Runnable {
 //                }
 //            }
 
-            logger.debug("Notify client");
-        Main.printMatrix(matrix);
+//            logger.debug("Notify client");
+//        Main.printMatrix(matrix);
             // sends the message to /topic/circuit
             template.convertAndSend("/topic/circuit", matrix);
 //        }

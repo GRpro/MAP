@@ -2,6 +2,7 @@ package com.kpi.project;
 
 import com.kpi.project.model.Graph;
 import com.kpi.project.packing.CLB;
+import com.kpi.project.utils.MultilevelStructureBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class MainController {
     public void startTask() throws Exception {
         logger.debug("Start process");
         clb.load(graph);
+        MultilevelStructureBuilder structureBuilder = new MultilevelStructureBuilder(graph);
+        System.out.println(structureBuilder.toString());
         observer.setMatrix(clb.toMatrix());
         try {
             lock.lock();

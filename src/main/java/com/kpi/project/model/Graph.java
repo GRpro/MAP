@@ -1,5 +1,7 @@
 package com.kpi.project.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,5 +42,39 @@ public class Graph {
                 "nodes=" + nodes +
                 ", edges=" + edges +
                 '}';
+    }
+
+    public Node getNodeById(int id){
+        for (Node node: nodes)
+            if (node.getId() == id)
+                return node;
+        return null;
+
+    }
+
+    public ArrayList<Integer> getChilds(Node node){
+
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        for(Edge edge: edges)
+            if(edge.getSource() == node.getId())
+                result.add(edge.getTarget());
+        return result;
+    }
+
+    public Boolean hasTarget(int id){
+
+        for(Edge edge: edges)
+            if(edge.getTarget() == id)
+                return true;
+        return false;
+    }
+
+    public int getMaxId(){
+
+        int max = nodes.get(0).getId();
+        for(Node node: nodes)
+            if (max < node.getId())
+                max = node.getId();
+        return max;
     }
 }

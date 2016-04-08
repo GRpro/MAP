@@ -5,7 +5,7 @@ if ( !Processing )
 function LogicMatrix(id) {
     // response to click
     this.interactive = false
-    this.h = 0
+    this.h = 0;
     this.w = 0
     this.mat = []
     this.cols = 0
@@ -13,31 +13,31 @@ function LogicMatrix(id) {
     this.rh = 0
     this.rw = 0
     this.cid = id
-    this.mouseClickedCallback = function(i,j){}
+    this.mouseClickedCallback = function(i,j){};
 
     // append a canvas to the container
-    var c = $('<canvas id="lm-canvas-'+id+'">')
+    var c = $('<canvas id="lm-canvas-'+id+'">');
     c.appendTo($("#"+id))
 
     // Processing instance
-    this.pjs = new Processing(c.get(0))
+    this.pjs = new Processing(c.get(0));
     this.pjs.ct = this
 
     /******************* set up pjs functions*********************/
     this.pjs.setup = function() {
-        this.size(this.ct.w, this.ct.h)
-        this.background(237)
+        this.size(this.ct.w, this.ct.h);
+        this.background(237);
         this.noLoop()
     }
 
     this.pjs.draw = function() {
-        var that = this.ct
+        var that = this.ct;
         for(i=0;i<that.rows;i++) {
             for(j=0;j<that.cols;j++) {
                 if ( that.mat[i][j] == 0 )
-                    this.fill(250)
+                    this.fill(250);
                 else
-                    this.fill(37)
+                    this.fill(37);
                 this.rect(j*that.rw,i*that.rh,that.rw,that.rh)
             }
         }
