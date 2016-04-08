@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class MultilevelStructureBuilder {
 
-    private LinkedList<ArrayList<Node>> structure;
+    public LinkedList<ArrayList<Node>> structure;
 
     public MultilevelStructureBuilder(Graph graph) {
 

@@ -50,4 +50,7 @@ public class CLB extends Item2D {
         return packer.makeMatrix();
     }
 
+    public void erase(){
+        this.operations.clear();
+    }
 }
