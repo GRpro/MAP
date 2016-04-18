@@ -40,7 +40,7 @@ public class MainController {
         MultilevelStructureBuilder structureBuilder = new MultilevelStructureBuilder(graph);
         for (int i = 0; i < structureBuilder.structure.size(); i++) {
             Graph graph = new Graph(structureBuilder.structure.get(i), null);
-            clb = new CLB(1, "CLB1", 50, 50);
+            clb.erase();
             clb.load(graph);
             System.out.println(structureBuilder.toString());
             observer.setMatrix(clb.toMatrix());

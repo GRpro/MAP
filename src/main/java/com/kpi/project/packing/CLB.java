@@ -52,5 +52,6 @@ public class CLB extends Item2D {
 
     public void erase(){
         this.operations.clear();
+        packer = new Packer(getWidth(), getHeight());
     }
 }

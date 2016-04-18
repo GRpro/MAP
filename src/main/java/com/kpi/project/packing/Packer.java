@@ -21,7 +21,7 @@ public class Packer {
         boolean result = false;
         int i = 0;
         for (; i < levels.size() && !result; i++) {
-            result = levels.get(i).canAccommodate(item);
+            result = levels.get(i).canAccommodate(item, true);
         }
         if (result) {
             Level lvl = levels.get(--i);
@@ -112,14 +112,29 @@ public class Packer {
             return this.height >= height && this.residualWidth >= width;
         }
 
-        public boolean canAccommodate(Item2D item) {
-            return canAccommodate(item.getWidth(), item.getHeight());
+        /**
+         * Checks that item can be accmmmodated on the lvl.
+         * @param item
+         * @param rotate if true, item can be rotated.
+         * @return can be accommodated or not. If rotate flag is true,
+         * item can be rotated after this method.
+         */
+        public boolean canAccommodate(Item2D item, boolean rotate) {
+            boolean result = canAccommodate(item.getWidth(), item.getHeight());
+            if (!result && rotate) {
+                item.rotate();
+                result = canAccommodate(item.getWidth(), item.getHeight());
+            }
+            return result;
         }
 
-        /** @return true, if item has been placed. */
+        /**
+         * Item will be rotated, if this can help to accommodate.
+         * @return true, if item has been placed.
+         */
         public boolean accommodate(Item2D item) {
             boolean result = false;
-            if (canAccommodate(item)) {
+            if (canAccommodate(item, true)) {
                 items.add(item);
                 residualWidth -= item.getWidth();
                 result = true;
