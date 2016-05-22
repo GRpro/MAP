@@ -1,0 +1,18 @@
+
+.btn-sq-sm {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 10px;
+}
+
+.grid-block {
+    display: inline-block;
+    margin: 1%;
+    width: 21% !important;
+    padding: 0;
+    border: 0;
+}
+
+#grid-rows {
+    width: inherit;
+}

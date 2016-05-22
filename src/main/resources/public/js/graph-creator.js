@@ -3,7 +3,7 @@ document.onload = (function(d3, saveAs, Blob, webSocketClient){
 
   // TODO add user settings
   var consts = {
-    defaultTitle: "random variable"
+    defaultTitle: "0X0"
   };
   var settings = {
     appendElSpec: "#graph"
@@ -296,9 +296,8 @@ document.onload = (function(d3, saveAs, Blob, webSocketClient){
     thisGraph.circles.filter(function(cd){
       return cd.id === thisGraph.state.selectedNode.id;
     }).classed(thisGraph.consts.selectedClass, false);
+    hideGraphEditNode(thisGraph.state.selectedNode)
     thisGraph.state.selectedNode = null;
-
-    hideGraphEditNode()
   };
 
   GraphCreator.prototype.removeSelectFromEdge = function(){
@@ -450,23 +449,32 @@ document.onload = (function(d3, saveAs, Blob, webSocketClient){
     var div = document.getElementById('graph-node-attributes');
     div.innerHTML = `
     <div class="form-group">
-      <label for="node-param-width">Width:</label>
-      <input type="text" value="` + node.width + `" class="form-control" id="node-param-width">
+      <label>Operation:</label>
+      <label id="oper-id" ></label>
     </div>
-    <div class="form-group">
-      <label for="node-param-height">Height:</label>
-      <input type="text" value="` +  node.height + `" class="form-control" id="node-param-height">
-    </div>
-    <button type="button" class="btn btn-default" id="saveNode">Save Changes</button>`;
 
-    document.getElementById("saveNode").addEventListener("click", function(){
-      node.width = document.getElementById("node-param-width").value;
-      node.height = document.getElementById("node-param-height").value
-    });
+    `;
+  //<button type="button" class="btn btn-default" id="saveNode">Save Changes</button>
+    if (node.width != null && node.height != null) {
+      $("#oper-id").text(node.width + "X" + node.height);
+    }
+
+    //document.getElementById("saveNode").addEventListener("click", function(){
+    //  var data = $("#oper-id").text();
+    //  var wh = data.split("X");
+    //  node.width = wh[0];
+    //  node.height = wh[1];
+    //});
   }
 
-  function hideGraphEditNode() {
+  function hideGraphEditNode(node) {
     // display edit fields
+    var data = $("#oper-id").text();
+    var wh = data.split("X");
+    node.width = wh[0];
+    node.height = wh[1];
+    //alert(node.title);
+    node.title = node.width + " X " + node.height;
     var div = document.getElementById('graph-node-attributes');
     div.innerHTML = '';
   }

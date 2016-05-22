@@ -45,26 +45,26 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">MAP Project</a>
+            <a class="navbar-brand" href="action.html">MAP Project</a>
         </div>
         <!-- Top Menu Items -->
-        <ul class="nav navbar-right top-nav">
+        <!--<ul class="nav navbar-right top-nav">-->
 
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Go to <b class="caret"></b></a>
-                <ul class="dropdown-menu alert-dropdown">
-                    <li>
-                        <a href="index.html">Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="action.html">Process page</a>
-                    </li>
-                    <li>
-                        <a href="about.html">About</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+            <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Go to <b class="caret"></b></a>-->
+                <!--<ul class="dropdown-menu alert-dropdown">-->
+                    <!--<li>-->
+                        <!--<a href="action.html">Dashboard</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="action.html">Process page</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="action.html">About</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+        <!--</ul>-->
     </nav>
 
     <div id="page-wrapper">
@@ -80,8 +80,7 @@
                     <ol class="breadcrumb">
                         <li class="active">
                             <i class="fa fa-dashboard"></i>
-                            Many people consider that an "oriented graph" is what you get from a simple undirected graph when you assign a direction to each edge. The difference between that and "directed graph" is that a directed graph can have cycles of length 2 even if it is qualified as "simple", whereas an "oriented graph" cannot. On the other hand, there are zillions of papers that use "oriented graph" with identical meaning to "directed graph".
-                            Applying these meanings pedantically in the negative doesn't seem to be a good idea. I'd be very surprised to see anyone using "non-oriented" of a digraph to imply that it doesn't have 2-cycles. I only recall "non-oriented" meaning that the edges don't have directions, which is the same as "undirected".
+                            Project description
                         </li>
                     </ol>
                 </div>
@@ -131,19 +130,48 @@
                                 </div>
 
 
-                                <div class="col-lg-9 text-center">
+                                <div class="col-lg-6 text-center">
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <!-- Graph input -->
                                             <link rel="stylesheet" href="css/graph-creator.css" />
-
-
                                             <div id="graph">
                                             </div>
                                             <script src="js/d3v3.js" charset="utf-8"></script>
                                             <script src="js/FileSaver.js"></script>
                                             <script src="js/graph-creator.js"></script>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 text-center">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <link rel="stylesheet" href="css/grid.css" />
+                                            <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+                                            <div class="container" id="grid-rows" style="overflow: scroll; height: 500px;">
+
+                                            </div>
+                                        </div>
+                                        <script>
+                                            function f(obj) {
+                                                $("#oper-id").text(obj.children()[0].innerHTML)
+                                            }
+
+                                            var ROWS = 20;
+                                            var COLS = 4;
+                                            for (var i = 1; i <= ROWS; i++) {
+                                                for (var j = 1; j <= COLS; j++) {
+                                                    $("#grid-rows").append(`
+                                                    <a href="#" class="btn btn-sq-sm btn-success grid-block" onclick="f($(this))">
+                                                        <h6>` + i + `X` + j + `</h6>
+                                                        <p id="w-` + i + `-` + j + `" style="display: none">` + i + `</p>
+                                                        <p id="h-` + i + `-` + j + `" style="display: none">` + j + `</p>
+                                                    </a>
+                                                    `);
+                                                }
+                                            }
+                                        </script>
                                     </div>
                                 </div>
                             </div>
