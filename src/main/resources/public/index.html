@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Bootstrap Admin Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+
+
+    <!-- WebSocket connection -->
+    <script src="js/sockjs-0.3.4.js"></script>
+    <script src="js/stomp.js"></script>
+    <script src="js/ws-connect.js"></script>
+</head>
+
+<body onload="webSocketClient.connect();" onclose="webSocketClient.disconnect();">
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">MAP Project</a>
+        </div>
+    </nav>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        Process page <small>Graph input</small>
+                    </h1>
+                    <div class="alert alert-info alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <i class="fa fa-info-circle"></i>
+                        <strong>How to draw?</strong>
+                        <ul style="text-align: left">
+                            <li>drag/scroll to translate/zoom the graph</li>
+                            <li>shift-click on graph to create a node</li>
+                            <li>shift-click on a node and then drag to another node to connect them with a directed edge</li>
+                            <li>click on node or edge and press backspace/delete to delete</li>
+                            <li>shift-click on a node to change its title</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Graph input</h3>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-lg-3 text-center">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+
+                                            <div id="graph-node-attributes">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+                                    <p>
+                                        <button type="button" class="btn btn-default" id="download-input">Save graph</button>
+                                        <button type="button" class="btn btn-default" id="upload-input">Load graph</button>
+                                        <button type="button" class="btn btn-default" id="delete-graph">Clear</button>
+                                        <button type="button" class="btn btn-default" id="sendGraph" onclick="$('#startProcess').prop('disabled', false);">Send graph</button>
+                                        <input type="file" id="hidden-file-upload">
+                                    </p>
+
+                                    <div>
+                                        <script>
+                                            function setStarted(started) {
+//                                                document.getElementById('startProcess').disabled = processed;
+//                                                document.getElementById('stopProcess').disabled = !processed;
+//                                                document.getElementById('circuitBoard').style.visibility = processed ? 'visible' : 'hidden';
+//                                                $('#stopProcess').prop('disabled', started);
+//                                                $('#startProcess').prop('disabled', !started);
+                                            }
+                                        </script>
+                                        <button id="startProcess" type="button" class="btn btn-default" disabled="disabled" onclick="webSocketClient.startProcess(); setStarted(true)" >Start process</button>
+                                        <button id="stopProcess" type="button" class="btn btn-default" disabled="disabled" onclick="webSocketClient.stopProcess(); setStarted(false)" >Stop process</button>
+                                    </div>
+
+                                    <div class="panel-body" id="circuitBoard" >
+                                        <!-- Display matrix that represents circuit board -->
+                                        <script type="text/javascript" src="js/jquery.js"></script>
+                                        <script type="text/javascript" src="js/pjs-1.4.1.min.js"></script>
+                                        <script type="text/javascript" src="js/logical-matrix.js"></script>
+                                        <div id="sketch" style="height:250px;width:250px;"></div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-lg-6 text-center">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <!-- Graph input -->
+                                            <link rel="stylesheet" href="css/graph-creator.css" />
+                                            <div id="graph">
+                                            </div>
+                                            <script src="js/d3v3.js" charset="utf-8"></script>
+                                            <script src="js/FileSaver.js"></script>
+                                            <script src="js/graph-creator.js"></script>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 text-center">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <link rel="stylesheet" href="css/grid.css" />
+                                            <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+                                            <button type="button" class="btn btn-default" id="delete-grid-btn" onclick="">Delete</button>
+                                            <button type="button" class="btn btn-default" id="new-grid-btn" data-toggle="modal" data-target="#newGrigModal">New</button>
+
+                                            <!-- Popup for setting width and height -->
+                                            <div class="modal fade" id="newGrigModal" role="dialog">
+                                                <div class="modal-dialog modal-sm">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">New element</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="new-width-input">Width</label>
+                                                                <input type="number" class="form-control" id="new-width-input">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="new-height-input">Height</label>
+                                                                <input type="number" class="form-control" id="new-height-input">
+                                                            </div>
+                                                        </div>
+
+                                                        <script>
+                                                            /**
+                                                             * This function is triggered when the user clicks on a grid element
+                                                             * @param obj
+                                                             */
+                                                            function gridOnClick(obj) {
+                                                                $("#oper-id").text(obj.children()[0].innerHTML)
+                                                            }
+
+                                                            function newGridElement() {
+                                                                var width = $("#new-width-input").val();
+                                                                var height = $("#new-height-input").val();
+                                                                $("#grid-rows").append(`
+                                                                    <a class="btn btn-sq-sm btn-success grid-block" onclick="gridOnClick($(this))">
+                                                                        <h6>` + width + `X` + height + `</h6>
+                                                                        <p id="w-` + width + `-` + height + `" style="display: none">` + width + `</p>
+                                                                        <p id="h-` + width + `-` + height + `" style="display: none">` + height + `</p>
+                                                                    </a>
+                                                                    `);
+                                                            }
+                                                        </script>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="newGridElement()">Create</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="container" id="grid-rows" style="overflow: scroll; height: 250px;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
+
+</body>
+
+</html>
