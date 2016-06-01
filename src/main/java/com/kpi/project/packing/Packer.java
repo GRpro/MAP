@@ -2,14 +2,13 @@ package com.kpi.project.packing;
 
 import java.util.ArrayList;
 
-
 /** Implements FirstFitLevel online packing. */
 public class Packer {
 
     private ArrayList<Level> levels;
 
     public Packer(int maxWidth, int maxHeight) {
-        levels = new ArrayList<Level>();
+        levels = new ArrayList<>();
         levels.add(new Level(maxWidth, maxHeight, 0));
     }
 
@@ -17,11 +16,11 @@ public class Packer {
      * If item can be placed in fully free level,
      * divides it into two levels(first has the same height as item.height()).
      */
-    public boolean place(Item2D item) {
+    public boolean place(DecartItem2D item) {
         boolean result = false;
         int i = 0;
         for (; i < levels.size() && !result; i++) {
-            result = levels.get(i).canAccommodate(item, true);
+            result = levels.get(i).canAccommodate(item);
         }
         if (result) {
             Level lvl = levels.get(--i);
@@ -39,11 +38,11 @@ public class Packer {
      * If any level is fully free after deleting the last item,
      * tries to merge this level with adjacent free levels.
      */
-    public boolean delete(Item2D item) {
+    public boolean delete(DecartItem2D item) {
         boolean result = false;
         int i = 0;
         for (; i < levels.size() && !result; i++) {
-            result = levels.get(i).removeAndSeal(item);
+            result = levels.get(i).remove(item);
         }
         if (result) {
             Level lvl = levels.get(--i);
@@ -63,13 +62,12 @@ public class Packer {
         Level lastLvl = levels.get(levels.size()-1);
         int result[][] = new int[lastLvl.getY()+lastLvl.getHeight()][lastLvl.getWidth()];
         for (Level lvl : levels) {
-            int x = 0;
-            for (Item2D item : lvl.items) {
-                for (int i = item.getWidth(); i > 0; i--) {
+            for (DecartItem2D item : lvl.getItems()) {
+                int x2 = item.getX()+item.getWidth();
+                for (int x = item.getX(); x < x2; x++) {
                     for (int y = lvl.getY() + item.getHeight()-1; y >= lvl.getY(); y--) {
                         result[y][x] = item.getId();
                     }
-                    x++;
                 }
             }
         }
@@ -92,97 +90,5 @@ public class Packer {
         levels.remove(index2);
     }
 
-    private static class Level {
 
-        private int height;
-        private int width;
-        private int y;
-        private int residualWidth;
-        private ArrayList<Item2D> items;
-
-        public Level(int width, int height, int y) {
-            this.height = height;
-            this.width = width;
-            this.y = y;
-            this.residualWidth = width;
-            items = new ArrayList<Item2D>();
-        }
-
-        public boolean canAccommodate(int width, int height) {
-            return this.height >= height && this.residualWidth >= width;
-        }
-
-        /**
-         * Checks that item can be accmmmodated on the lvl.
-         * @param item
-         * @param rotate if true, item can be rotated.
-         * @return can be accommodated or not. If rotate flag is true,
-         * item can be rotated after this method.
-         */
-        public boolean canAccommodate(Item2D item, boolean rotate) {
-            boolean result = canAccommodate(item.getWidth(), item.getHeight());
-            if (!result && rotate) {
-                item.rotate();
-                result = canAccommodate(item.getWidth(), item.getHeight());
-            }
-            return result;
-        }
-
-        /**
-         * Item will be rotated, if this can help to accommodate.
-         * @return true, if item has been placed.
-         */
-        public boolean accommodate(Item2D item) {
-            boolean result = false;
-            if (canAccommodate(item, true)) {
-                items.add(item);
-                residualWidth -= item.getWidth();
-                result = true;
-            }
-            return result;
-        }
-
-        /**
-         * After removing item, shifts all items to left.
-         * @return true, if level contained this item.
-         */
-        public boolean removeAndSeal(Item2D item) {
-            boolean result = items.remove(item);
-            if (result) {
-                residualWidth += item.getWidth();
-            }
-            return result;
-        }
-
-        void setHeight(int height) {
-            this.height = height;
-        }
-
-        /** @return false, if level contains at least one item. */
-        public boolean isFree() {
-            return getResidualWidth() == getWidth();
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public int getWidth() { return width;}
-
-        public int getResidualWidth() {
-            return residualWidth;
-        }
-
-        public int getY() {return y;}
-
-        public String toString() {
-            StringBuilder result = new StringBuilder("Level with width = " + getWidth() + " and height = " +
-                    getHeight() + " at y = " + getY() + ". Contains:\n");
-            for (Item2D item : items) {
-                result.append("\t"+item.toString() + "\n");
-            }
-            result.append("Residual width = " + getResidualWidth());
-            return result.toString();
-        }
-    }
 }

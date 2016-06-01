@@ -15,22 +15,38 @@ public class CLB extends Item2D {
     public CLB(int id, String name, int width, int height) {
         super(id, name, width, height);
         packer = new Packer(width, height);
-        operations = new ArrayList<Operation>();
+        operations = new ArrayList<>();
     }
 
-    public void activate(Operation ... ops) {
-        activate(Arrays.asList(ops));
+    public boolean activate(Operation ... ops) {
+        return activate(Arrays.asList(ops));
     }
 
-    /** Places all operations on CLB. */
-    public void activate(List<Operation> ops) {
+    /**
+     * Places all operations on CLB.
+     * @return true, if all operations have been activated.
+     */
+    public boolean activate(List<Operation> ops) {
+        boolean result = true;
         for (Operation op : ops) {
-            while (!packer.place(op)) {
-                packer.delete(operations.get(0));
-                operations.remove(0);
+            int i = 0;
+            boolean flag = packer.place(op);
+            while (!flag && i < operations.size()) {
+                if (operations.get(i).isWorking()) {
+                    i++;
+                } else {
+                    packer.delete(operations.get(i));
+                    operations.remove(i);
+                }
+                flag = packer.place(op);
             }
-            operations.add(op);
+            if (flag) {
+                operations.add(op);
+            } else {
+                result = false;
+            }
         }
+        return result;
     }
 
     public void load(Graph graph) {

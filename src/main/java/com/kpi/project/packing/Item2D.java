@@ -14,11 +14,7 @@ public abstract class Item2D {
         this.height = height;
     }
 
-    public void rotate() {
-        int buf = width;
-        width = height;
-        height = buf;
-    }
+    protected void setWidth(int width) {this.width = width;}
 
     public int getId() {
         return id;
