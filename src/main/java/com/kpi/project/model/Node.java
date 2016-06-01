@@ -10,6 +10,8 @@ public class Node {
     /* rectangle properties */
     private int width;
     private int height;
+    /* processing time */
+    private int time;
 
     public Node(int id, int width, int height) {
         this.id = id;
@@ -44,12 +46,21 @@ public class Node {
         this.height = height;
     }
 
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "Node{" +
-                "id=" + id +
-                ", width=" + width +
-                ", height=" + height +
-                '}';
+            "id=" + id +
+            ", width=" + width +
+            ", height=" + height +
+            ", time=" + time +
+            '}';
     }
 }

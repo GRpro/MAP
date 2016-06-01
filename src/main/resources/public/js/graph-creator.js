@@ -173,9 +173,11 @@ document.onload = (function(d3, saveAs, Blob, webSocketClient){
       var edges = [];
       for (var i = 0; i < thisGraph.nodes.length; i++) {
         nodes.push({
+          /* This fields are the fields of Node entity */
           id: thisGraph.nodes[i].id,
           width: thisGraph.nodes[i].width,
-          height: thisGraph.nodes[i].height
+          height: thisGraph.nodes[i].height,
+          time: thisGraph.nodes[i].pTime
         })
       }
       for (var i = 0; i < thisGraph.edges.length; i++) {
@@ -455,8 +457,8 @@ document.onload = (function(d3, saveAs, Blob, webSocketClient){
 
     `;
   //<button type="button" class="btn btn-default" id="saveNode">Save Changes</button>
-    if (node.width != null && node.height != null) {
-      $("#oper-id").text(node.width + "X" + node.height);
+    if (node.width != null && node.height != null && node.pTime != null) {
+      $("#oper-id").text(node.width + "X" + node.height + "X" + node.pTime);
     }
 
     //document.getElementById("saveNode").addEventListener("click", function(){
@@ -473,8 +475,9 @@ document.onload = (function(d3, saveAs, Blob, webSocketClient){
     var wh = data.split("X");
     node.width = wh[0];
     node.height = wh[1];
+    node.pTime = wh[2];
     //alert(node.title);
-    node.title = node.width + " X " + node.height;
+    node.title = node.width + " X " + node.height + " X " + node.pTime;
     var div = document.getElementById('graph-node-attributes');
     div.innerHTML = '';
   }

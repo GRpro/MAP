@@ -15,6 +15,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
+
 jar {
     baseName = 'gs-messaging-stomp-websocket'
     version =  '0.1.0'
@@ -28,8 +29,10 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-websocket")
-    compile("'org.springframework.boot:spring-boot-starter-logging")
+    compile("org.springframework.boot:spring-boot-starter-logging")
     compile("org.springframework:spring-messaging")
+    // Lombok dependency
+    //compile group: 'org.projectlombok', name: 'lombok', version:'1.12.6'
     testCompile("junit:junit")
 }
 

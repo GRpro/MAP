@@ -171,6 +171,10 @@
                                                                 <label for="new-height-input">Height</label>
                                                                 <input type="number" class="form-control" id="new-height-input">
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label for="new-time-input">Time</label>
+                                                                <input type="number" class="form-control" id="new-time-input">
+                                                            </div>
                                                         </div>
 
                                                         <script>
@@ -179,17 +183,20 @@
                                                              * @param obj
                                                              */
                                                             function gridOnClick(obj) {
-                                                                $("#oper-id").text(obj.children()[0].innerHTML)
+                                                                $("#oper-id").text(obj.children()[0].innerHTML + "X" + obj.children()[1].innerHTML)
                                                             }
 
                                                             function newGridElement() {
                                                                 var width = $("#new-width-input").val();
                                                                 var height = $("#new-height-input").val();
+                                                                var time = $("#new-time-input").val();
                                                                 $("#grid-rows").append(`
                                                                     <a class="btn btn-sq-sm btn-success grid-block" onclick="gridOnClick($(this))">
-                                                                        <h6>` + width + `X` + height + `</h6>
-                                                                        <p id="w-` + width + `-` + height + `" style="display: none">` + width + `</p>
-                                                                        <p id="h-` + width + `-` + height + `" style="display: none">` + height + `</p>
+                                                                        <p>` + width + `X` + height + `</p>
+                                                                        <p>` + time + `</p>
+                                                                        <p id="w-` + width + `-` + height + `-` + time + `" style="display: none">` + width + `</p>
+                                                                        <p id="h-` + width + `-` + height + `-` + time + `" style="display: none">` + height + `</p>
+                                                                        <p id="t-` + width + `-` + height + `-` + time + `" style="display: none">` + time + `</p>
                                                                     </a>
                                                                     `);
                                                             }
