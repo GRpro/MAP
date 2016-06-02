@@ -48,7 +48,7 @@ public class Packer {
             Level lvl = levels.get(--i);
             if (lvl.isFree()) {
                 if (i > 0 && levels.get(i - 1).isFree()) {
-                    merge(i, i - 1);
+                    merge(i-1, i);
                 }
                 if (i < levels.size() - 1 && levels.get(i + 1).isFree()) {
                     merge(i, i + 1);
@@ -83,7 +83,7 @@ public class Packer {
         return result.toString();
     }
 
-    /** Merges two leveles to one. */
+    /** Merges two leveles to one. index1 < index2!! */
     private void merge(int index1, int index2) {
         Level lvl = levels.get(index1);
         lvl.setHeight(lvl.getHeight() + levels.get(index2).getHeight());

@@ -25,6 +25,9 @@ public class Level {
         emptyItems.add(ei);
         items = new TreeSet<>((o1, o2) -> {
             int delta = o1.getX() - o2.getX();
+            if (delta == 0) {
+                delta = o1.getId() - o2.getId();
+            }
             return delta;
         });
         items.add(ei);

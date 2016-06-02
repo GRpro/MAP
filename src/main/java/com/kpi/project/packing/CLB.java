@@ -57,7 +57,8 @@ public class CLB extends Item2D {
                     node.getId(),
                     "Operation with id" + node.getId(),
                     node.getWidth(),
-                    node.getHeight()));
+                    node.getHeight(),
+                    node.getTime()));
         }
         activate(ops);
     }
